@@ -6,40 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linear_layout"
+    <com.google.android.gms.maps.MapView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#466200EE"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/str_longitud"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_longitud" />
+            android:background="@color/azulGrisaceoTransp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/str_latitud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_latitud" />
+            <TextView
+                android:id="@+id/str_longitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_longitud" />
 
-        <TextView
-            android:id="@+id/str_altitud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_altitud" />
+            <TextView
+                android:id="@+id/str_latitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_latitud" />
 
-        <TextView
-            android:id="@+id/stra_precision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_precision" />
+            <TextView
+                android:id="@+id/str_altitud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_altitud" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/stra_precision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_precision" />
+        </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
