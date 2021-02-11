@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,14 +17,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
     private Location localizacion;
-    private LocationManager localizador;
     private LocationManager location_manager;
     private boolean hay_conexion_gps;
 
-    private TextView tv;
-
-    double latitud = 0;
-    double longitud = 0;
+    private TextView tv_longitud;
+    private TextView tv_latitud;
+    private TextView tv_altitud;
+    private TextView tv_precision;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +32,36 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         //Pide permisos al usuario de acceso al gps
         ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
-
-
-
+        tv_longitud = (TextView) findViewById(R.id.str_longitud);
+        tv_latitud = (TextView) findViewById(R.id.str_latitud);
+        tv_altitud = (TextView) findViewById(R.id.str_altitud);
+        tv_precision = (TextView) findViewById(R.id.stra_precision);
         getLocation();
-        tv = (TextView) findViewById(R.id.tv);
-        tv.setText("latidud: "+ latitud +"  longitud: " + longitud);
     }
+    @SuppressLint("ResourceType")
     public void getLocation(){
         location_manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 !=
                 PackageManager.PERMISSION_GRANTED){
-                tv.setText("No se han dado permisos para acceder a la localización");
+               Toast tostada = Toast.makeText(this, "No se han dado permisos para acceder a la localización", Toast.LENGTH_SHORT);
+               tostada.show();
             return;
         }
         location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 5, this);
-        //ESTO VA
         localizacion = location_manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        latitud = localizacion.getLatitude();
-        longitud = localizacion.getLongitude();
+        tv_longitud.setText(getResources().getString(R.string.str_longitud) + " " + String.valueOf(localizacion.getLongitude()));
+        tv_latitud.setText(getResources().getString(R.string.str_latitud) + " " + String.valueOf(localizacion.getLatitude()));
+        tv_altitud.setText(getResources().getString(R.string.str_altitud) + " " + String.valueOf(localizacion.getAltitude()));
+        tv_precision.setText(getResources().getString(R.string.str_precision) + " " + String.valueOf(localizacion.getAccuracy()));
     }
+    @SuppressLint("ResourceType")
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        latitud = location.getLatitude();
-        longitud = location.getLongitude();
-        tv.setText("latidud: "+ latitud +"  longitud: " + longitud);
+        tv_longitud.setText(getResources().getString(R.string.str_longitud) + " " + String.valueOf(localizacion.getLongitude()));
+        tv_latitud.setText(getResources().getString(R.string.str_latitud) + " " + String.valueOf(localizacion.getLatitude()));
+        tv_altitud.setText(getResources().getString(R.string.str_altitud) + " " + String.valueOf(localizacion.getAltitude()));
+        tv_precision.setText(getResources().getString(R.string.str_precision) + " " + String.valueOf(localizacion.getAccuracy()));
     }
 
     @Override
@@ -67,30 +71,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
-        tv.setText("No se encuentra señal GPS");
+        Toast tostada = Toast.makeText(this, "No se encuentra la señal GPS", Toast.LENGTH_SHORT);
+        tostada.show();
     }
 
     @Override
     public void onProviderEnabled(@NonNull String provider) {
 
     }
-
-
-
-
-       /* //Asignamos el manejador de Location Service a la variable localizador
-        localizador = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        //true/false si el gps esta activado
-        hay_conexion_gps = localizador.isProviderEnabled(LocationManager.GPS_PROVIDER);*/
-
-
-
-        //Asigna a localizador la ultima posicion que se obtubo a traves del GPS
-        /*localizacion = localizador.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        latitud = localizacion.getLatitude();
-        longitud = localizacion.getLongitude();*/
-
-
-
 }

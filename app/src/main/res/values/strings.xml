@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EjLocation</string>
+    <string name="str_longitud">Longitud: </string>
+    <string name="str_latitud">Latitud: </string>
+    <string name="str_altitud">Altitud: </string>
+    <string name="str_precision">Precisión: </string>
+
 </resources>
